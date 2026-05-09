@@ -1,6 +1,7 @@
 
 using DWQueueAPI.Data;
 using DWQueueAPI.Interfaces;
+using DWQueueAPI.Mappings;
 using DWQueueAPI.Services;
 using DWQueueAPI.Sevices;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,8 @@ namespace DWQueueAPI
             builder.Services.AddScoped<DepartmentService>();
             builder.Services.AddScoped<ProjectService>();
             builder.Services.AddTransient<IMessageService, MessageService>();
+            //builder.Services.AddAutoMapper(typeof(MappingProfile));
+            builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 
             builder.Services.AddLogging();
 

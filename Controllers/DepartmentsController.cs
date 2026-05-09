@@ -1,4 +1,5 @@
-﻿using DWQueueAPI.Data.Entities;
+﻿using AutoMapper;
+using DWQueueAPI.Data.Entities;
 
 using DWQueueAPI.DTOs.DepartmenDTOs;
 
@@ -23,16 +24,18 @@ namespace DWQueueAPI.Controllers
     {
 
         private readonly DepartmentService _departmentService;
+        private readonly IMapper _mapper;
 
 
 
 
 
-        public DepartmentsController(DepartmentService departmentService)
+        public DepartmentsController(DepartmentService departmentService , IMapper mapper)
 
         {
 
             _departmentService = departmentService;
+            _mapper = mapper;
 
         }
 
@@ -51,16 +54,17 @@ namespace DWQueueAPI.Controllers
             {
 
                 var departments = await _departmentService.GetAllDepartmentsAsync();
+                var response = _mapper.Map<IEnumerable<DepartmentResponseDto>>(departments);
 
-                var response = departments.Select(d => new DepartmentResponseDto
+                //var response = departments.Select(d => new DepartmentResponseDto
 
-                {
+                //{
 
-                    DepartmentID = d.DepartmentID,
+                //    DepartmentID = d.DepartmentID,
 
-                    DepartmentName = d.DepartmentName
+                //    DepartmentName = d.DepartmentName
 
-                }).ToList();
+                //}).ToList();
 
                 return Ok(response);
 
@@ -91,6 +95,7 @@ namespace DWQueueAPI.Controllers
             {
 
                 var department = await _departmentService.GetDepartmentByIDAsync(id);
+                var response = _mapper.Map<DepartmentResponseDto>(department);
 
                 if (department == null)
 
@@ -100,15 +105,15 @@ namespace DWQueueAPI.Controllers
 
                 }
 
-                var response = new DepartmentResponseDto
+                //var response = new DepartmentResponseDto
 
-                {
+                //{
 
-                    DepartmentID = department.DepartmentID,
+                //    DepartmentID = department.DepartmentID,
 
-                    DepartmentName = department.DepartmentName
+                //    DepartmentName = department.DepartmentName
 
-                };
+                //};
 
                 return Ok(response);
 
@@ -141,14 +146,14 @@ namespace DWQueueAPI.Controllers
             try
 
             {
+                var department = _mapper.Map<Departments>(createDepartment);
+                //Departments department = new Departments
 
-                Departments department = new Departments
+                //{
 
-                {
+                //    DepartmentName = createDepartment.DepartmentName
 
-                    DepartmentName = createDepartment.DepartmentName
-
-                };
+                //};
 
                 await _departmentService.AddDepartmentAsync(department);
 
@@ -178,17 +183,17 @@ namespace DWQueueAPI.Controllers
 
                 if (updateDepartment.DepartmentID == null)
                     return BadRequest("ID in URL does not match ID in body.");
-               
 
-                Departments department = new Departments
-                {
 
-                    DepartmentID = updateDepartment.DepartmentID,
+                //Departments department = new Departments
+                //{
 
-                    DepartmentName = updateDepartment.DepartmentName
+                //    DepartmentID = updateDepartment.DepartmentID,
 
-                };
+                //    DepartmentName = updateDepartment.DepartmentName
 
+                //};
+                var department = _mapper.Map<Departments>(updateDepartment);
                 await _departmentService.UpdateDepartmentAsync(department);
 
                 return Ok("Department updated successfully");
