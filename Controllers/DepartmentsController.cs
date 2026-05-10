@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace DWQueueAPI.Controllers
 
 {
-
     [Route("api/[controller]")]
 
     [ApiController]
@@ -22,37 +21,21 @@ namespace DWQueueAPI.Controllers
     public class DepartmentsController : ControllerBase
 
     {
-
         private readonly DepartmentService _departmentService;
         private readonly IMapper _mapper;
 
-
-
-
-
-        public DepartmentsController(DepartmentService departmentService , IMapper mapper)
-
+        public DepartmentsController(DepartmentService departmentService, IMapper mapper)
         {
-
             _departmentService = departmentService;
             _mapper = mapper;
 
         }
 
-
-
-
-
         [HttpGet]
-
         public async Task<IActionResult> GetAll()
-
         {
-
-            try
-
-            {
-
+            //try
+            //{
                 var departments = await _departmentService.GetAllDepartmentsAsync();
                 var response = _mapper.Map<IEnumerable<DepartmentResponseDto>>(departments);
 
@@ -67,70 +50,39 @@ namespace DWQueueAPI.Controllers
                 //}).ToList();
 
                 return Ok(response);
-
-            }
-
-            catch (Exception ex)
-
-            {
-
-                return BadRequest(ex.Message);
-
-            }
-
-
-
+            //}
+            //catch (Exception ex)
+            //{
+              //  return BadRequest(ex.Message);
+            //}
         }
-
 
 
         [HttpGet("{id}")]
 
         public async Task<IActionResult> GetByID(int id)
-
         {
-
-            try
-
-            {
-
+            //try
+            //{
                 var department = await _departmentService.GetDepartmentByIDAsync(id);
                 var response = _mapper.Map<DepartmentResponseDto>(department);
 
                 if (department == null)
-
-                {
-
                     return NotFound("Department not found");
-
-                }
-
+                
                 //var response = new DepartmentResponseDto
-
                 //{
-
                 //    DepartmentID = department.DepartmentID,
-
                 //    DepartmentName = department.DepartmentName
-
                 //};
 
                 return Ok(response);
+            //}
 
-            }
-
-            catch (Exception ex)
-
-            {
-
-                return BadRequest(ex.Message);
-
-            }
-
-
-
-
-
+            //catch (Exception ex)
+            //{
+                //return BadRequest(ex.Message);
+            //}
         }
 
 
@@ -140,35 +92,24 @@ namespace DWQueueAPI.Controllers
         [HttpPost]
 
         public async Task<IActionResult> Create(CreateDepartmentDto createDepartment)
-
         {
-
-            try
-
-            {
+            //try
+            //{
                 var department = _mapper.Map<Departments>(createDepartment);
                 //Departments department = new Departments
-
                 //{
-
                 //    DepartmentName = createDepartment.DepartmentName
-
                 //};
 
                 await _departmentService.AddDepartmentAsync(department);
-
                 return Ok("Department created successfully");
+            //}
+            //catch (Exception ex)
+            //{
+                //var innerError = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                //return BadRequest(innerError);
 
-            }
-
-            catch (Exception ex)
-
-            {
-
-                var innerError = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-                return BadRequest(innerError);
-
-            }
+            //}
 
         }
 
@@ -177,71 +118,39 @@ namespace DWQueueAPI.Controllers
         [HttpPut(nameof(Update))]
         public async Task<IActionResult> Update(UpdateDepartmetDto updateDepartment)
         {
-
-            try
-            {
-
+            //try
+            //{
                 if (updateDepartment.DepartmentID == null)
                     return BadRequest("ID in URL does not match ID in body.");
-
-
                 //Departments department = new Departments
                 //{
-
                 //    DepartmentID = updateDepartment.DepartmentID,
-
                 //    DepartmentName = updateDepartment.DepartmentName
-
                 //};
+
                 var department = _mapper.Map<Departments>(updateDepartment);
                 await _departmentService.UpdateDepartmentAsync(department);
-
                 return Ok("Department updated successfully");
-
-            }
-
-            catch (Exception ex)
-
-            {
-
-                return BadRequest(ex.Message);
-
-            }
-
+            //}
+            //catch (Exception ex)
+            //{
+                //return BadRequest(ex.Message);
+            //}
         }
-
-
 
         [HttpDelete("{id}")]
-
-
-
         public async Task<IActionResult> Delete(int id)
-
         {
-
-            try
-
-            {
-
+            //try
+            //{
                 await _departmentService.DeleteDepartmentAsync(id);
-
                 return Ok("Department deleted successfully");
-
-            }
-
-            catch (Exception ex)
-
-            {
-
-                return BadRequest(ex.Message);
-
-            }
-
+            //}
+            //catch (Exception ex)
+            //{
+                //return BadRequest(ex.Message);
+            //}
         }
-
-
-
     }
 
 

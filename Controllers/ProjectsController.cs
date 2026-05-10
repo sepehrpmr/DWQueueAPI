@@ -27,8 +27,8 @@ namespace DWQueueAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            try
-            {
+            //try
+            //{
                 var projects = await _projectService.GetAllProjectsAsync();
                 var response = _mapper.Map<IEnumerable<ProjectResponseDto>>(projects);
                 //var response = projects.Select(p => new ProjectResponseDto
@@ -40,11 +40,11 @@ namespace DWQueueAPI.Controllers
                 //    Budget = (decimal)p.Budget
                 //}).ToList();
                 return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+                //return BadRequest(ex.Message);
+            //}
         }
 
 
@@ -53,8 +53,8 @@ namespace DWQueueAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByID(int id)
         {
-            try
-            {
+            //try
+            //{
                 var project = await _projectService.GetProjectByIDAsync(id);
                 if (project == null)
                 {
@@ -70,11 +70,11 @@ namespace DWQueueAPI.Controllers
                 //    Budget = (decimal)project.Budget
                 //};
                 return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+                //return BadRequest(ex.Message);
+            //}
 
         }
 
@@ -82,8 +82,8 @@ namespace DWQueueAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateProjectDto projectCreateDto)
         {
-            try
-            {
+            //try
+            //{
                 var project = _mapper.Map<Projects>(projectCreateDto);
                 //var project = new Projects
                 //{
@@ -94,11 +94,11 @@ namespace DWQueueAPI.Controllers
                 //};
                 await _projectService.AddProjectAsync(project);
                 return Ok("Project created successfully");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+                //return BadRequest(ex.Message);
+            //}
         }
 
 
@@ -107,8 +107,8 @@ namespace DWQueueAPI.Controllers
 
         public async Task<IActionResult> Update(UpdateProjectDto projectUpdateDto)
         {
-            try
-            {
+            //try
+            //{
                 var project = _mapper.Map<Projects>(projectUpdateDto);
                 //var project = new Projects
                 //{
@@ -120,11 +120,11 @@ namespace DWQueueAPI.Controllers
                 //};
                 await _projectService.UpdateProjectAsync(project);
                 return Ok("Project updated successfully");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+                //return BadRequest(ex.Message);
+            //}
         }
 
 
@@ -132,15 +132,15 @@ namespace DWQueueAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
+            //try
+            //{
                 await _projectService.DeleteProjectAsync(id);
                 return Ok("Project deleted successfully");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+                //return BadRequest(ex.Message);
+            //}
 
 
         }

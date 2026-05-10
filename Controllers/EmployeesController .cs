@@ -27,19 +27,19 @@ namespace DWQueueAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            try
-            {   
+            //try
+            //{   
                 // ۱. گرفتن لیست اصلی از سرویس
                 var employees = await _employeeService.GetAllEmployeesAsync();
                 var response = _mapper.Map<IEnumerable<EmployeeResponseDto>>(employees);
 
                 return Ok(response);
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
 
-                return BadRequest(ex.Message);
-            }
+               // return BadRequest(ex.Message);
+            //}
             
         }
 
@@ -49,8 +49,8 @@ namespace DWQueueAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByID(int id)
         {
-            try
-            {
+            //try
+            //{
                 var employee = await _employeeService.GetEmployeeByIDAsync(id);
                 if (employee == null)
                 {
@@ -69,12 +69,12 @@ namespace DWQueueAPI.Controllers
 
 
                 return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+            //}
+            //catch (Exception ex)
+            //{
+             //   return StatusCode(500, $"Internal server error: {ex.Message}");
 
-            }
+            //}
             
         }
 
@@ -82,8 +82,8 @@ namespace DWQueueAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CreateEmployeeDto createDto)
         {
-            try
-            {
+            //try
+            //{
 
                 var employee = _mapper.Map<Employees>(createDto);
                 //Employees employee = new Employees
@@ -95,19 +95,19 @@ namespace DWQueueAPI.Controllers
                 //};
                 await _employeeService.AddEmployeeAsync(employee);
                 return Ok("Employee added successfully");
-            }
+            //}
             //catch (Exception ex)
             //{
 
             //    return StatusCode(500, $"Internal server error: {ex.Message}");
             //}
 
-            catch (Exception ex)
-            {
+            //catch (Exception ex)
+            //{
                 // این خط باعث می‌شه ارور اصلی دیتابیس رو بخونیم
-                var realError = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-                return StatusCode(500, $"Database Error: {realError}");
-            }
+                //var realError = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+               // return StatusCode(500, $"Database Error: {realError}");
+            //}
 
         }
 
@@ -120,17 +120,17 @@ namespace DWQueueAPI.Controllers
                 return BadRequest("آی‌دی ارسال شده با مشخصات کارمند همخوانی ندارد.");
             }
 
-            try
-            {
+            //try
+            //{
                 var employee = _mapper.Map<Employees>(updateDto);
                 await _employeeService.UpdateEmployeeAsync(employee);
 
                 return Ok("اطلاعات کارمند با موفقیت بروزرسانی شد.");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"خطای سیستمی: {ex.Message}");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+             //   return StatusCode(500, $"خطای سیستمی: {ex.Message}");
+            //}
         }
         //[HttpPut(nameof(Update))]
         //public async Task<IActionResult> Update([FromBody] UpdateEmployeeDto updateEmployee)
@@ -163,16 +163,16 @@ namespace DWQueueAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
+            //try
+            //{
                 await _employeeService.DeleteEmployeeAsync(id);
                 return Ok("Employee deleted successfully");
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
 
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+                //return StatusCode(500, $"Internal server error: {ex.Message}");
+            //}
            
         }
     }

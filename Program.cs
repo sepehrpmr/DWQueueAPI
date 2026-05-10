@@ -2,6 +2,7 @@
 using DWQueueAPI.Data;
 using DWQueueAPI.Interfaces;
 using DWQueueAPI.Mappings;
+using DWQueueAPI.Middlewares;
 using DWQueueAPI.Services;
 using DWQueueAPI.Sevices;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,10 @@ namespace DWQueueAPI
 
             var app = builder.Build();
 
+
+
+            app.UseGlobalExceptionHandler();
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -49,14 +54,9 @@ namespace DWQueueAPI
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();
-
-
-
-
         }
     }
 

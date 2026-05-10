@@ -16,21 +16,13 @@ namespace DWQueueAPI.Mappings
             CreateMap<CreateEmployeeDto, Employees>();
             CreateMap<UpdateEmployeeDto, Employees>();
 
-
-
-
-
             CreateMap<Departments, DepartmentResponseDto>();
 
             CreateMap<CreateDepartmentDto, Departments>();
             CreateMap<UpdateDepartmetDto, Departments>();
 
 
-
-
-
             CreateMap<Projects, ProjectResponseDto>();
-
 
             CreateMap<CreateProjectDto, Projects>();
             CreateMap<UpdateProjectDto, Projects>();
