@@ -43,3 +43,21 @@ Visual Studio 2022 or VS Code
 SQL Server (Express or LocalDB)
 
 .NET SDK (8.0+)
+
+
+
+
+🐳 Containerization (English Version)
+This project is built to be environment-agnostic using Docker. The configuration includes the API service and a SQL Server container, orchestrated via Docker Compose.
+
+To spin up the entire stack:
+
+Open a terminal in the root directory (where docker-compose.yml is located).
+
+Run the command:
+
+Bash
+docker-compose up --build
+Automatic Migrations: The API is configured to apply migrations automatically on startup, ensuring the database schema is always up-to-date within the container.
+
+
