@@ -3,6 +3,7 @@ using DWQueueAPI.Data.Entities;
 using DWQueueAPI.DTOs.DepartmenDTOs; 
 using DWQueueAPI.DTOs.EmployeeDTOs;
 using DWQueueAPI.DTOs.ProjectDTOs;
+using DWQueueAPI.DTOs.EmployeeLeavesDTOs;
 
 namespace DWQueueAPI.Mappings
 {
@@ -26,6 +27,14 @@ namespace DWQueueAPI.Mappings
 
             CreateMap<CreateProjectDto, Projects>();
             CreateMap<UpdateProjectDto, Projects>();
+
+
+
+
+            CreateMap<CreateEmployeeLeavesDto, EmployeeLeaves>();
+            CreateMap<UpdateEmployeeLeavesDto, EmployeeLeaves>();
+            CreateMap<EmployeeLeaves, EmployeeLeavesResponseDto >()
+                .ForMember(dest => dest.EmployeeName, opt => opt.MapFrom(src => src.Employee.Name)); 
 
 
         }

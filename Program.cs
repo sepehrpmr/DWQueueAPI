@@ -20,6 +20,7 @@ namespace DWQueueAPI
             builder.Services.AddScoped<EmployeeService>();
             builder.Services.AddScoped<DepartmentService>();
             builder.Services.AddScoped<ProjectService>();
+            builder.Services.AddScoped<EmployeeLeaveService>();
             builder.Services.AddTransient<IMessageService, MessageService>();
             //builder.Services.AddAutoMapper(typeof(MappingProfile));
             builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
