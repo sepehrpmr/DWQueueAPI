@@ -61,3 +61,9 @@ docker-compose up --build
 Automatic Migrations: The API is configured to apply migrations automatically on startup, ensuring the database schema is always up-to-date within the container.
 
 
+
+
+
+=======commingsoon===========> RabbitMQ for send a email service 
+
+
