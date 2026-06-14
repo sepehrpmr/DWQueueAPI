@@ -36,3 +36,14 @@ The entire infrastructure is fully containerized. You can spin up the whole envi
    cd DWQueue
 
    docker compose up --build
+
+
+
+
+   📊 How to Use & Test
+Once the containers are up, you can interact with the system using the following interfaces:
+
+Service	URL	Description
+Swagger UI	http://localhost:5000/swagger	Trigger leave approval events
+RabbitMQ Management	http://localhost:15672	Monitor exchanges, queues, and message rates (Guest/Guest)
+MailHog Web UI	http://localhost:8025	View intercepted email notifications in real-time
