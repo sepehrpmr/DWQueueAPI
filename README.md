@@ -34,3 +34,5 @@ The entire infrastructure is fully containerized. You can spin up the whole envi
    ```bash
    git clone [https://github.com/your-username/DWQueue.git](https://github.com/your-username/DWQueue.git)
    cd DWQueue
+
+   docker compose up --build
