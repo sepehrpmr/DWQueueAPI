@@ -1,41 +1,36 @@
-*** DWQueueAPI - Employee Leave Management System A robust, enterprise-ready ASP.NET Core Web API designed to manage employee leaves and queueing systems. This project follows a clean architecture, utilizing Entity Framework Core (Code-First), AutoMapper, and a custom Global Exception Middleware.
+# DWQueue - Distributed Event-Driven Leave Approval System
 
-*** Tech Stack Framework: .NET 8 / .NET 9 (ASP.NET Core)
+DWQueue is a modern, scaleable, and decoupled distributed system built with **ASP.NET Core**, **RabbitMQ**, and **Docker**. It leverages an **Event-Driven Architecture (EDA)** to handle employee leave requests and asynchronous background notifications seamlessly.
 
-Database: SQL Server (SSMS)
+## 🚀 Architecture Overview
 
-ORM: Entity Framework Core (Code-First approach)
+The system is split into independent, autonomous microservices that communicate asynchronously using **MassTransit** over **RabbitMQ**:
 
-Mapping: AutoMapper
+1. **DWQueueAPI (Publisher):** A RESTful API that handles HTTP client requests. When a leave request is approved, it publishes a `LeaveApprovedEvent` to RabbitMQ and immediately responds to the client (Stateless & Fast).
+2. **RabbitMQ (Message Broker):** Manages the message exchanges and queues using an advanced Exchange-to-Exchange topology provided by MassTransit, ensuring reliable message delivery.
+3. **DWNotificationService (Consumer/Worker):** A background worker service that listens to the queue. Upon receiving the event, it processes the data and dispatches an HTML email notification.
+4. **MailHog (SMTP Testing Server):** A local email-testing tool that catches all outgoing emails in a beautiful Web UI without sending them to real inboxes.
 
-Documentation: Swagger UI (OpenAPI)
+## 🛠️ Tech Stack
 
-Architecture: Repository/Service Pattern with DTOs
+* **Backend:** .NET Core 8.0 / C#
+* **Message Broker:** RabbitMQ
+* **Bus Provider:** MassTransit (AMQP 0-9-1)
+* **Containerization:** Docker & Docker Compose
+* **Mail Server (Dev):** MailHog
+* **API Documentation:** Swagger / OpenAPI
 
-✨ Key Features Structured DTOs: Separate models for Creating, Updating, and Responding to keep data secure and prevent "Overposting."
+## ⚙️ Prerequisites
 
-Baseline Migration Logic: Managed via the "Baseline Strategy" to sync C# models with an existing SQL database seamlessly.
+Before running the project, ensure you have the following installed:
+* [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+* [.NET 8.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (Optional, for local development outside Docker)
 
-Global Exception Handling: A custom Middleware intercepts all errors to return standardized JSON responses.
+## 🏎️ Getting Started & Installation
 
-Automated Mapping: Complex object transformations (including relational data like EmployeeName) are handled by AutoMapper Profiles.
+The entire infrastructure is fully containerized. You can spin up the whole environment with a single command.
 
-Relational Database: Full support for one-to-many relationships between Employees and Leaves.
-
-📂 Project Structure Plaintext DWQueueAPI │ ├── Controllers # API Endpoints (EmployeeLeavesController) ├── Data # DB Context and Entity Models ├── DTOs # Data Transfer Objects (Create, Update, Response) ├── Services # Business Logic Layer (LeaveService) ├── Mapping # AutoMapper Profiles ├── Middlewares # Global Exception Middleware └── Migrations # Database Version Control (Baseline Strategy) ⚙️ Getting Started Prerequisites Visual Studio 2022 or VS Code
-
-SQL Server (Express or LocalDB)
-
-.NET SDK (8.0+)
-
-🐳 Containerization (English Version) This project is built to be environment-agnostic using Docker. The configuration includes the API service and a SQL Server container, orchestrated via Docker Compose.
-
-To spin up the entire stack:
-
-Open a terminal in the root directory (where docker-compose.yml is located).
-
-Run the command:
-
-Bash docker-compose up --build Automatic Migrations: The API is configured to apply migrations automatically on startup, ensuring the database schema is always up-to-date within the container.
-
-RabbitMQ for send a email service
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/your-username/DWQueue.git](https://github.com/your-username/DWQueue.git)
+   cd DWQueue
