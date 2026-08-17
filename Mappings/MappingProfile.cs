@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DWQueueAPI.Data.Entities;
-using DWQueueAPI.DTOs.DepartmenDTOs; 
+using DWQueueAPI.DTOs.DepartmenDTOs;
 using DWQueueAPI.DTOs.EmployeeDTOs;
 using DWQueueAPI.DTOs.ProjectDTOs;
 using DWQueueAPI.DTOs.EmployeeLeavesDTOs;
